@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const dbconfiguration = require('./config/database')
 
 const authRouter = require('./routers/authRouters');
+const filesRouter = require('./routers/fileRoutes');
 
 async function LancerServeur(){
     try{
@@ -23,7 +24,6 @@ async function LancerServeur(){
     }
 }
 
-LancerServeur();
 
 const app = express();
 app.use(express.json());
@@ -31,11 +31,18 @@ app.use(cors());
 app.use(helmet());
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
-app.use('/api/auth',authRouter);
 
-app.get('/', (req, res)=>{
+//Routes
+app.use('/api/auth',authRouter);
+app.use('/api/files',filesRouter);
+app.use('/uploads', express.static("uploads"));
+
+
+LancerServeur();
+
+/*app.get('/', (req, res)=>{
     res.json({message: "successfully receved mister Sawadogo"});
-})
+})*/
 
 
 

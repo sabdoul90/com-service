@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const dbconfiguration = require('../config/database');
+const Information = require('./informationmodel');
 
 const File = dbconfiguration.define(
     "File",
@@ -21,6 +22,14 @@ const File = dbconfiguration.define(
             type: DataTypes.STRING,
             allowNull : false,
         },
+        information :{
+            type : DataTypes.INTEGER,
+            allowNull : true,
+            references : {
+                model:Information,
+                key : "id"
+            }
+        },
         size:{
             type : DataTypes.INTEGER,
             allowNull : true,
@@ -32,4 +41,6 @@ const File = dbconfiguration.define(
     }
 );
 
+Information.hasMany(File, {foreignKey:"information", onDelete : 'CASCADE'});
+File.belongsTo(Information, {foreignKey:"information"});
 module.exports = File;

@@ -1,6 +1,7 @@
 const {DataTypes} = require('sequelize');
 const dbconfiguration = require('../config/database');
 const User = require('./userModel');
+//const File = require('./fileModele');
 
 const Information = dbconfiguration.define( "Information",
     {
@@ -17,17 +18,18 @@ const Information = dbconfiguration.define( "Information",
             type:DataTypes.TEXT,
             allowNull:false,
         },
-        userId :{
+        user :{
             type:DataTypes.INTEGER,
-            allowNull:false,
+            allowNull:true,
             references: {
                 model:User,
                 key:"id"
             },
         }
-    },{
+    },
+    {
         tableName: "informations",
         timestamps:true,
     });
 
-    module.exports = Information;
+module.exports = Information;

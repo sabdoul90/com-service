@@ -3,9 +3,9 @@ const express = require('express');
 const cors = require("cors")
 const helmet = require('helmet');
 const dbconfiguration = require('./config/database')
-
 const authRouter = require('./routers/authRouters');
 const filesRouter = require('./routers/fileRoutes');
+const informationRouter = require('./routers/InfoRoutes');
 
 async function LancerServeur(){
     try{
@@ -35,6 +35,7 @@ app.use(express.urlencoded({extended:true}));
 //Routes
 app.use('/api/auth',authRouter);
 app.use('/api/files',filesRouter);
+app.use('/api',informationRouter);
 app.use('/uploads', express.static("uploads"));
 
 

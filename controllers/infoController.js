@@ -1,7 +1,7 @@
-const express = require('express');
+
 const Information = require('../models/informationmodel');
 const File = require('../models/fileModele');
-const { where, json } = require('sequelize');
+const Commentaire = require('../models/commentaireModele');
 
 const addInfo = async (req, res)=>{
     try{
@@ -18,7 +18,7 @@ const addInfo = async (req, res)=>{
 
         const infoAjouter = await Information.findOne({
             where: { id: info.id },
-            include: [{ model: File }]
+            include: [{ model: File, model:Commentaire }]
         });
 
         res.status(200).json({
@@ -39,9 +39,10 @@ const getInfo = async (req, res) => {
         console.log("Dans la fonction getInfo");
 
         const info = await Information.findAll({
-            include: {
-                model: File,
-            }
+            include: [
+                { model: File}, 
+                {model:Commentaire}
+            ]
         });
 
         if (info.length>0) {
@@ -67,9 +68,11 @@ const getInfoParID = async (req, res) => {
 
         const info = await Information.findOne({
             where : {id},
-            include : {
-                model:File
-            }
+            include : 
+            [
+                { model: File}, 
+                {model:Commentaire}
+            ]
         });
 
         if (info) {
@@ -153,7 +156,10 @@ const updateInfo = async (req, res) => {
 
         const updatedInfo = await Information.findOne({
             where: { id },
-            include: { model: File }
+            include: [
+                { model: File}, 
+                {model:Commentaire}
+            ]
         });
 
         return res.status(200).json(

@@ -6,6 +6,7 @@ const dbconfiguration = require('./config/database')
 const authRouter = require('./routers/authRouters');
 const filesRouter = require('./routers/fileRoutes');
 const informationRouter = require('./routers/InfoRoutes');
+const commentRoute = require('./routers/commentaireRouters');
 
 async function LancerServeur(){
     try{
@@ -36,6 +37,7 @@ app.use(express.urlencoded({extended:true}));
 app.use('/api/auth',authRouter);
 app.use('/api/files',filesRouter);
 app.use('/api',informationRouter);
+app.use('/api',commentRoute);
 app.use('/uploads', express.static("uploads"));
 
 

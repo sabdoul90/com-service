@@ -10,6 +10,10 @@ const Information = dbconfiguration.define( "Information",
             autoIncrement:true,
             primaryKey:true,
         },
+        type:{
+            type:DataTypes.STRING,
+            allowNull:false,
+        },
         titre:{
             type:DataTypes.STRING,
             allowNull:false,

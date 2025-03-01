@@ -2,12 +2,14 @@
 const Information = require('../models/informationmodel');
 const File = require('../models/fileModele');
 const Commentaire = require('../models/commentaireModele');
+const Like = require('../models/likesModele');
+const Partage = require('../models/partagesModele');
 
 const addInfo = async (req, res)=>{
     try{
-        const {titre, description, filesIds} = req.body;
+        const {type, titre, description, filesIds} = req.body;
 
-        const info = await Information.create({titre, description});
+        const info = await Information.create({type, titre, description});
 
         if(Array.isArray(filesIds) && filesIds.length>0){
             await File.update(
@@ -18,7 +20,12 @@ const addInfo = async (req, res)=>{
 
         const infoAjouter = await Information.findOne({
             where: { id: info.id },
-            include: [{ model: File, model:Commentaire }]
+            include: [ 
+                {model: File}, 
+                {model:Commentaire},
+                {model:Like},
+                {model:Partage}
+            ]
         });
 
         res.status(200).json({
@@ -40,8 +47,10 @@ const getInfo = async (req, res) => {
 
         const info = await Information.findAll({
             include: [
-                { model: File}, 
-                {model:Commentaire}
+                {model: File}, 
+                {model:Commentaire},
+                {model:Like},
+                {model:Partage}
             ]
         });
 
@@ -70,8 +79,10 @@ const getInfoParID = async (req, res) => {
             where : {id},
             include : 
             [
-                { model: File}, 
-                {model:Commentaire}
+                {model: File}, 
+                {model:Commentaire},
+                {model:Like},
+                {model:Partage}
             ]
         });
 
@@ -157,8 +168,10 @@ const updateInfo = async (req, res) => {
         const updatedInfo = await Information.findOne({
             where: { id },
             include: [
-                { model: File}, 
-                {model:Commentaire}
+                {model: File}, 
+                {model:Commentaire},
+                {model:Like},
+                {model:Partage}
             ]
         });
 

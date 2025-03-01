@@ -33,7 +33,7 @@ const Commentaire = dbconfiguration.define(
         }
     },
     {
-        tableName : "commenatire",
+        tableName : "commentaires",
         timestamps : true
     }
 );

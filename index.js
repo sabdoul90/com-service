@@ -7,6 +7,8 @@ const authRouter = require('./routers/authRouters');
 const filesRouter = require('./routers/fileRoutes');
 const informationRouter = require('./routers/InfoRoutes');
 const commentRoute = require('./routers/commentaireRouters');
+const partageRoutes = require('./routers/partagesRoutes');
+const likesRoutes = require('./routers/likesRoutes');
 
 async function LancerServeur(){
     try{
@@ -37,6 +39,8 @@ app.use(express.urlencoded({extended:true}));
 app.use('/api/auth',authRouter);
 app.use('/api/files',filesRouter);
 app.use('/api',informationRouter);
+app.use('/api',partageRoutes);
+app.use('/api',likesRoutes);
 app.use('/api',commentRoute);
 app.use('/uploads', express.static("uploads"));
 
